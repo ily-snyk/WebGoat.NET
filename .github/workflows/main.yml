@@ -15,7 +15,10 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
-          
+
+      - name: Enable .NET Framework 3.5
+        run: dism /online /enable-feature /featurename:NetFx3 /all /quiet /norestart
+
       - name: Cache NuGet packages
         uses: actions/cache@v4
         with:
@@ -29,6 +32,9 @@ jobs:
 
       - name: Build the project
         run: dotnet build --no-restore --configuration Release
+
+      # rest of your steps...
+
 
       # Install Snyk CLI
       - name: Install Snyk CLI
